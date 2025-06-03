@@ -1,0 +1,23 @@
+{
+    "name": "estuardo-backend",
+    "version": "1.0.0",
+    "description": "API Backend para Estuardo, marca de ropa de hombre",
+    "main": "src/server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node src/server.js",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "Chantal Yukelson",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.2",
+        "swagger-ui-express": "^4.6.3",
+        "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "supertest": "^6.3.3"
+    }
+}

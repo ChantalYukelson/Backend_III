@@ -1,30 +1,31 @@
+// src/app.js
 import express from 'express';
-import mongoose from 'mongoose';
-import mocksRouter from './routes/mocks.router.js';
+import adoptionRouter from './routes/adoption.router.js';
+import usersRouter from './routes/users.router.js';
 
 const app = express();
-const PORT = 8080;
 
-// Middlewares
+// Middleware para parsear JSON
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Rutas
-app.use('/api/mocks', mocksRouter);
-
-// Conexión a MongoDB
-const MONGO_URI = 'mongodb://localhost:27017/mockingEntrega'; // Cambialo si usás Atlas o cluster remoto
-
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => {
-    console.log('✅ Conectado a MongoDB');
-    app.listen(PORT, () => {
-        console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    });
-})
-.catch((error) => {
-    console.error('❌ Error al conectar a MongoDB:', error);
+// Ruta raíz para dar bienvenida o info
+app.get('/', (req, res) => {
+  res.send('Bienvenido a la API de Estuardo');
 });
+
+// Rutas principales
+app.use('/api/adoptions', adoptionRouter);
+app.use('/api/users', usersRouter);
+
+// Ruta para cuando no se encuentra un endpoint
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Ruta no encontrada' });
+});
+
+// Middleware de manejo de errores
+app.use((err, req, res, next) => {
+  console.error('Error interno:', err);
+  res.status(500).json({ error: 'Error interno del servidor' });
+});
+
+export default app;

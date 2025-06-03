@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Estuardo API
+  version: 1.0.0
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+  /api/adoptions:
+    get:
+      summary: Obtener todas las adopciones
+      responses:
+        '200':
+          description: Lista de adopciones
+    post:
+      summary: Crear una nueva adopción
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                product:
+                  type: string
+              required:
+                - name
+                - product
+      responses:
+        '201':
+          description: Adopción creada
+        '400':
+          description: Datos faltantes
